@@ -1,2 +1,2 @@
-# Practical-test-OnlineHMSyaytem
+# Practical-test-OnlineHMSystem
 Practical test
