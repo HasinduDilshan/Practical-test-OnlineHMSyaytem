@@ -20,8 +20,50 @@ if (status != true)
  return;
  }
 // If valid------------------------
- $("#formBillinfo").submit();
+var type = ($("#hidPaymentIDSave").val() == "") ? "POST" : "PUT";
+$.ajax(
+		{
+		 url : "PaymentAPI",
+		 type : type,
+		 data : $("#formBillinfo").serialize(),
+		 dataType : "text",
+		 complete : function(response, status)
+		 {
+		 onPaymentSaveComplete(response.responseText, status);
+		 }
+		});
 });
+
+function onPaymentSaveComplete(response, status)
+{
+if (status == "success")
+ {
+ var resultSet = JSON.parse(response);
+ if (resultSet.status.trim() == "success")
+ {
+ $("#alertSuccess").text("Successfully saved.");
+ $("#alertSuccess").show();
+ $("#divPaymentGrid").html(resultSet.data);
+ } else if (resultSet.status.trim() == "error")
+ {
+ $("#alertError").text(resultSet.data);
+ $("#alertError").show();
+ }
+ } else if (status == "error")
+ {
+ $("#alertError").text("Error while saving.");
+ $("#alertError").show();
+ } else
+ {
+ $("#alertError").text("Unknown error while saving..");
+ $("#alertError").show();
+ }
+ $("#hidPaymentIDSave").val("");
+ $("#formBillinfo")[0].reset();
+}
+
+
+
 // UPDATE==========================================
 $(document).on("click", ".btnUpdate", function(event)
 {
@@ -31,6 +73,48 @@ $(document).on("click", ".btnUpdate", function(event)
  $("#Amount").val($(this).closest("tr").find('td:eq(2)').text());
  $("#Description").val($(this).closest("tr").find('td:eq(3)').text());
 });
+
+// REMOVE 
+$(document).on("click", "#btnRemove", function(event)
+		{$.ajax(
+				{
+					 url : "PaymentAPI",
+					 type : "DELETE",
+					 data : "PaymentID=" + $(this).data("PaymentID"),
+					 dataType : "text",
+					 complete : function(response, status)
+					 {
+					 onPaymentDeleteComplete(response.responseText, status);
+					 }
+					});
+			});
+
+function onPaymentDeleteComplete(response, status)
+{
+if (status == "success")
+ {
+ var resultSet = JSON.parse(response);
+ if (resultSet.status.trim() == "success")
+ {
+ $("#alertSuccess").text("Successfully Removed.");
+ $("#alertSuccess").show();
+ $("#divPaymentGrid").html(resultSet.data);
+ } else if (resultSet.status.trim() == "error")
+ {
+ $("#alertError").text(resultSet.data);
+ $("#alertError").show();
+ }
+ } else if (status == "error")
+ {
+ $("#alertError").text("Error while Removing.");
+ $("#alertError").show();
+ } else
+ {
+ $("#alertError").text("Unknown error while saving..");
+ $("#alertError").show();
+ }
+}
+
 // CLIENTMODEL=========================================================================
 function validatePaymentForm()
 {
