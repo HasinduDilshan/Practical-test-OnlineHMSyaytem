@@ -1,54 +1,14 @@
+<%@page import="com.Payment"%>
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	
-<%
-//instalize
-session.setAttribute("statusMsg", "");
-System.out.println("Trying to process...");
-
-
-//Save---------------------------------
-if (request.getParameter("PaymentID") != null)
-{
-	Payment PaymentObj = new Payment();
- String stsMsg = "";
-//Insert--------------------------
-if (request.getParameter("hidPaymentIDSave") == "")
- {
- stsMsg = PaymentObj.insertPayments(request.getParameter("PaymentID"),
- 		request.getParameter("PayDate"),
- 		request.getParameter("CustomerName"),
- 		request.getParameter("Amount"),
- 		request.getParameter("Description"));
- }
-else//Update----------------------
- {
- stsMsg = PaymentObj.updatePayments(request.getParameter("hidPaymentIDSave"),
-		 request.getParameter("PayDate"),
-		 request.getParameter("CustomerName"),
-		 request.getParameter("Amount"),
-		 request.getParameter("Description"));
- }
- session.setAttribute("statusMsg", stsMsg);
-}
-//Delete-----------------------------
-if (request.getParameter("hidPaymentIDDelete") != null)
-{
-	Payment PaymentObj = new Payment();
- String stsMsg =
-		 PaymentObj.deletePayments(request.getParameter("hidPaymentIDDelete"));
- session.setAttribute("statusMsg", stsMsg);
-}
-%>
-	
-	
-	
-	
 	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
+<meta content="ISO-8859-1">
+<title>Bills</title>
 <link rel="Stylesheet" href="Views/bootstrap.min.css">
 <script src="Components/jquery-3.2.1.min.js"></script>
 <script src="Components/main.js"></script>
@@ -61,7 +21,7 @@ h1 {
 }
 </style>
 
-<title>Bills</title>
+
 </head>
 <body>
 
@@ -117,22 +77,16 @@ h1 {
 	
 		</form>
 		
-<div id="alertSuccess" class="alert alert-success">
-	<%
- 	out.print(session.getAttribute("statusMsg"));
- %>
-
-</div>
+<div id="alertSuccess" class="alert alert-success"></div>
 <div id="alertError" class="alert alert-danger"></div>
 <br>
-<div id="divPaymentGrid">
- <%
- Payment PaymentObj = new Payment();
- out.print(PaymentObj.readPayment());
- %>
+ <div id="divPaymentGrid">
+ 	<%{
+ 		Payment PaymentObj = new Payment();
+ 		out.print(PaymentObj.readPayment());}
+ 	%>
+</div>	
 </div>
-		
-	</div>
 	
 
 </body>
