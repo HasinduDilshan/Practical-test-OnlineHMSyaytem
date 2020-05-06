@@ -1,5 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+	
+<%
+//instalize
+session.setAttribute("statusMsg", "");
+System.out.println("Trying to process...");
+
+
+//Save---------------------------------
+if (request.getParameter("PaymentID") != null)
+{
+	Payment PaymentObj = new Payment();
+ String stsMsg = "";
+//Insert--------------------------
+if (request.getParameter("hidItemIDSave") == "")
+ {
+ stsMsg = PaymentObj.insertPayments(request.getParameter("PaymentID"),
+ request.getParameter("itemName"),
+ request.getParameter("itemPrice"),
+ request.getParameter("itemDesc"));
+ }
+else//Update----------------------
+ {
+ stsMsg = PaymentObj.updatePayments(request.getParameter("hidPaymentIDSave"),
+ request.getParameter("itemCode"),
+ request.getParameter("itemName"),
+ request.getParameter("itemPrice"),
+ request.getParameter("itemDesc"));
+ }
+ session.setAttribute("statusMsg", stsMsg);
+}
+//Delete-----------------------------
+if (request.getParameter("hidPaymentIDDelete") != null)
+{
+	Payment PaymentObj = new Payment();
+ String stsMsg =
+		 PaymentObj.deletePayments(request.getParameter("hidPaymentIDDelete"));
+ session.setAttribute("statusMsg", stsMsg);
+}
+%>
+	
+	
+	
+	
+	
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
