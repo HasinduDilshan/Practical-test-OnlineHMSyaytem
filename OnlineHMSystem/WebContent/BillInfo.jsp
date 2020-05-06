@@ -13,7 +13,7 @@ if (request.getParameter("PaymentID") != null)
 	Payment PaymentObj = new Payment();
  String stsMsg = "";
 //Insert--------------------------
-if (request.getParameter("hidItemIDSave") == "")
+if (request.getParameter("hidPaymentIDSave") == "")
  {
  stsMsg = PaymentObj.insertPayments(request.getParameter("PaymentID"),
  		request.getParameter("PayDate"),
@@ -120,7 +120,7 @@ h1 {
 <div id="alertSuccess" class="alert alert-success">
 	<%
  	out.print(session.getAttribute("statusMsg"));
- 	%>
+ %>
 
 </div>
 <div id="alertError" class="alert alert-danger"></div>
