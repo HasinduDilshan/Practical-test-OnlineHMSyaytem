@@ -29,11 +29,10 @@ if (status != true)
 $(document).on("click", ".btnUpdate", function(event)
 {
  $("#hidPaymentIDSave").val($(this).closest("tr").find('#hidPaymentIDUpdate').val());
- $("#PaymentID").val($(this).closest("tr").find('td:eq(0)').text());
- $("#PayDate").val($(this).closest("tr").find('td:eq(1)').text());
- $("#CustomerName").val($(this).closest("tr").find('td:eq(2)').text());
- $("#Amount").val($(this).closest("tr").find('td:eq(3)').text());
- $("#Description").val($(this).closest("tr").find('td:eq(4)').text());
+ $("#PayDate").val($(this).closest("tr").find('td:eq(0)').text());
+ $("#CustomerName").val($(this).closest("tr").find('td:eq(1)').text());
+ $("#Amount").val($(this).closest("tr").find('td:eq(2)').text());
+ $("#Description").val($(this).closest("tr").find('td:eq(3)').text());
 });
 // CLIENTMODEL=========================================================================
 function validatePaymentForm()
