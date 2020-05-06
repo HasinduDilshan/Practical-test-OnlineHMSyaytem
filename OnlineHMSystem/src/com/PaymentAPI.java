@@ -45,7 +45,6 @@ public class PaymentAPI extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String output = PaymentObj.insertPayments(
-				request.getParameter("PaymentID"),
 				request.getParameter("PayDate"),
 				request.getParameter("CustomerName"),
 				request.getParameter("Amount"),
@@ -59,8 +58,7 @@ public class PaymentAPI extends HttpServlet {
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
-		String output = PaymentObj.updatePayment(paras.get("hidPaymentIDSave").toString(),
-		paras.get("PaymentID").toString(),
+		String output = PaymentObj.updatePayments(paras.get("hidPaymentIDSave").toString(),
 		paras.get("PayDate").toString(),
 		paras.get("CustomerName").toString(),
 		paras.get("Amount").toString(),
@@ -74,7 +72,7 @@ public class PaymentAPI extends HttpServlet {
 
 	protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map paras = getParasMap(request);
-		 String output = PaymentObj.deletePayment(paras.get("PaymentID").toString());
+		 String output = PaymentObj.deletePayments(paras.get("PaymentID").toString());
 		response.getWriter().write(output); 
 	}
 	
