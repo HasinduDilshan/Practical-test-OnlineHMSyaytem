@@ -16,17 +16,18 @@ if (request.getParameter("PaymentID") != null)
 if (request.getParameter("hidItemIDSave") == "")
  {
  stsMsg = PaymentObj.insertPayments(request.getParameter("PaymentID"),
- request.getParameter("itemName"),
- request.getParameter("itemPrice"),
- request.getParameter("itemDesc"));
+ 		request.getParameter("PayDate"),
+ 		request.getParameter("CustomerName"),
+ 		request.getParameter("Amount"),
+ 		request.getParameter("Description"));
  }
 else//Update----------------------
  {
  stsMsg = PaymentObj.updatePayments(request.getParameter("hidPaymentIDSave"),
- request.getParameter("itemCode"),
- request.getParameter("itemName"),
- request.getParameter("itemPrice"),
- request.getParameter("itemDesc"));
+		 request.getParameter("PayDate"),
+		 request.getParameter("CustomerName"),
+		 request.getParameter("Amount"),
+		 request.getParameter("Description"));
  }
  session.setAttribute("statusMsg", stsMsg);
 }
@@ -116,7 +117,12 @@ h1 {
 	
 		</form>
 		
-<div id="alertSuccess" class="alert alert-success"></div>
+<div id="alertSuccess" class="alert alert-success">
+	<%
+ 	out.print(session.getAttribute("statusMsg"));
+ 	%>
+
+</div>
 <div id="alertError" class="alert alert-danger"></div>
 <br>
 <div id="divPaymentGrid">
