@@ -65,15 +65,17 @@ public class Payment { // A common method to connect to the DB
 				String Amount = Double.toString(rs.getDouble("Amount"));
 				String Description = rs.getString("Description");
 // Add into the html table
-				output += "<tr><td><input id='hidPaymentIDupdate' name='hidPaymentIDupdate' type='hidden' value='"+ PaymentID +"'>" + PaymentID + "</td>";
+				output += "<tr><td><input id=\"hidPaymentIDupdate\" name=\"hidPaymentIDupdate\" type=\"hidden\" value=\""+ PaymentID +"\">" + PaymentID + "</td>";
 				output += "<td>" + PayDate + "</td>";
 				output += "<td>" + CustomerName + "</td>";
 				output += "<td>" + Amount + "</td>";
 				output += "<td>" + Description + "</td>";
 
 // buttons
-				output += "<td><input name='btnUpdate' type='button' value='Update' class='btnUpdate btn btn-secondary'></td>"
-						+ "<td><input name='btnRemove' type='button'value='Remove'class='btnRemove btn btn-danger' data-paymentid='"+ PaymentID + "'>" + "</td></tr>"; 
+				output += "<td><input name=\"btnUpdate\" type=\"button\" value=\"Update\" class=\"btnUpdate btn btn-secondary\"></td>"
+						+ "<td><form method=\"post\" action=\"BillInfo.jsp\">"
+						+ "<td><input name=\"btnRemove\" type=\"button\" value=\"Remove\" class=\"btnRemove btn btn-danger\">"
+						+ "<td><input name=\"hidPaymentIDDelete\" type=\"hidden\"+ value=\"" + PaymentID + "\">" + "</form></td></tr>"; 
 				
 				
 			}
